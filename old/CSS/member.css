@@ -1,0 +1,55 @@
+/* member.css */
+@charset "utf-8";
+
+
+
+.member{
+    clear:both;
+    width:500px;
+    margin:0px auto;
+    background-color:#fff;
+	border:1px solid #f00;
+    position:relative;
+    
+    
+}
+
+.member img{
+    float:left;
+    position:absolute;
+    top:50%;
+    margin-top:-35px;
+}
+
+.member ul{
+    margin-left:70px;
+}
+
+.member li{
+	padding:3px 0px;
+    border:1px solid #f00;
+}
+
+.member li:first-child{
+    border-top:none;
+}
+
+.member li:last-child{
+    border-bottom:none;
+}
+
+#example{
+    background-color:#000;
+    position:static;
+    
+}
+
+#example img{
+	position:static;
+    margin-top:28px;
+}
+
+#example li{
+    color:#fff;
+}
+

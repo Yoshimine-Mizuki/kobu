@@ -1,0 +1,263 @@
+@charset "utf-8";
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-style:normal;
+	font-weight: normal;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+html{
+    overflow-y: scroll;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+input, textarea,{
+	margin: 0;
+	padding: 0;
+}
+
+ol, ul{
+    list-style:none;
+}
+
+table{
+    border-collapse: collapse; 
+    border-spacing:0;
+}
+
+caption, th{
+    text-align: left;
+}
+
+a:focus {
+	outline:none;
+}
+
+.clearfix:after {
+	content: "."; 
+	/*display: block; */
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+
+.clearfix {
+	min-height: 1px;
+}
+
+* html .clearfix {
+	height: 1px;
+	/*¥*//*/
+	height: auto;
+	overflow: hidden;
+	/**/
+}
+
+.both{
+	clear:both;
+}
+
+.inline_block {  
+	display: inline-block;  
+	*display: inline;  
+	*zoom: 1;  
+}
+
+/* 以降加筆 */
+
+p,a,h1,h2,h3,h4,h5,h6,ul,li{
+    color:#000;
+}
+
+/* ページの大きさ */
+
+html{
+   /* background-color:#eed;*/
+	height:100%;
+}
+
+body {
+    height:100%;
+    /* フォント指定 */
+    font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic ProN','メイリオ',Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+}
+
+body > #container {
+    height:auto;
+}
+
+#container {
+	min-height:100%;
+    height:100%;
+    width: 600px;
+    margin:0px auto;
+    box-shadow:0px 0px 3px rgba(0,0,0,0.8);
+
+}
+
+#bgimage{
+    position:fixed;
+    height:1000px;
+    width:600px;
+    background-image:url(../picture/bgimage.jpg); 
+    background-color:#f11;
+    background-repeat:no-repeat;
+    background-position:bottom;
+	bottom:0;
+    left:50%;
+    margin-left:-300px;
+    z-index:-1;
+}
+
+
+/* ヘッダー */
+
+#header {
+    margin-bottom: 15px;
+}
+
+#logo{
+    float:left;
+    width:160px;
+}
+
+#top {/* 画面上部の紹介文 */
+    float:right;
+    width:400px;
+    height:40px;
+    padding:20px;
+}
+
+#top p {
+    font-size:12px;
+}
+
+/* メニューバー */
+#menubar{
+	clear:both;
+    margin:0px auto;
+}
+
+#menubar>ul {
+    height:42px;
+    width:570px;
+    margin:0px auto;
+    padding:0px;
+    list-style-type:none;
+}
+
+#menubar ul li{
+	display:inline;
+    height:42px;
+    width:80px;
+    float:left;
+	position:relative;
+    text-align:center;
+    line-height:100%;
+}
+
+#menubar>ul>li:last-child{
+    width:90px;
+}
+
+#menubar ul li a{
+    color:#fff;
+    font-size:12px;
+    font-weight:bold;
+    text-shadow:1px 1px 0px #000;
+    padding:13px 0px;
+    text-decoration:none;
+    display:block;
+    background-color:#0d0d59;
+    /*background-color:#d7203d;*/
+    border-left:1px dashed #fff;
+}
+
+#menubar>ul>li:last-child a{
+    font-size:10px;
+    padding:13px 0px;
+}
+
+#menubar .long-a{
+    padding-top:6px;
+}
+
+#menubar ul li:hover >a{
+    background-color:#3E90BA;
+}
+
+#menubar ul li ul{
+    list-style-type:none;
+    position:absolute;
+    height:42px;
+    width:100%;
+    top:100%;
+    left:0px;
+    margin:0px;
+    padding:0px;
+    /*;background-color:#000;*/
+}
+
+#menubar ul li ul li{
+	overflow:hidden;
+    width:100%;
+    height:0px;
+    color:#fff;
+    -webkit-transition:.2s;
+    transition:.2s;
+}
+
+#menubar ul li:hover ul li{
+	overflow:visible;
+    height:42px;
+}
+
+#menubar ul li ul li a{
+    border-top:1px solid #fff;
+	border-left:none;
+}
+
+#menubar ul li:hover ul li:last-child a{
+	border-radius:0px 0px 5px 5px;
+}
+
+#menubar>ul>li:first-child>a{    
+    border-radius:5px 0 0 5px;
+    border-left:none;
+}
+
+#menubar>ul>li:last-child>a{
+    border-radius:0 5px 5px 0;
+}
+
+

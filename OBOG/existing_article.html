@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='format-detection' content='telephone=no,address=no,email=no'>
+    <meta name='viewport' content='width=device-width,user-scalable=no,maximum-scale=1,viewport-fit=cover'>
+    <base href='http://www2.jimu.nagoya-u.ac.jp/minzokuonbu/'>
+    <link rel='stylesheet' href='resources/css/style.css'>
+
+    <title>団員専用ページ - 民舞太鼓サークル鼓舞</title>
+</head>
+
+<body ontouchend onload='getJson();'>
+    <!-- NAVIGATION -->
+    <div class='ie'>
+        Internet Explorer はサポート対象外です。 <br>
+        Microsoft Edge をご使用ください。
+    </div>
+
+    <nav>
+        <input type='checkbox' class='btn' id='checked'>
+        <label class='menu-btn' for='checked'>
+            <span class='hum top'></span>
+            <span class='hum middle'></span>
+            <span class='hum bottom'></span>
+        </label>
+
+        <div class='nav'>
+            <a href=''><div class='logo'></div></a>
+            <div class='wrapper header-wrapper'>
+                <a href='About/' class='nav-text header-nav'>鼓舞とは</a>
+                <a href='Programs/' class='nav-text header-nav'>演目紹介</a>
+                <a href='Performances/' class='nav-text header-nav'>舞台紹介</a>
+                <a href='Link/' class='nav-text header-nav'>リンク</a>
+                <a href='Contact/' class='nav-text header-nav'>お問い合わせ</a>
+            </div>
+            <a href='OBOG/' class='nav-text header-nav obog'>団員専用ページ</a>
+            <div class='nav-sns'>
+                <a href='https://twitter.com/taiKO_minBU' class='nav-twitter icon'></a>
+                <a href='https://www.instagram.com/onsta__gram/' class='nav-instagram icon'></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ここを編集 -->
+    <main>
+        <div class='board-wrapper sub'>
+            <div class='sub-board'>
+                <div class='title'>記事一覧</div>
+                <div id='article-wrapper' class='article-wrapper'></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class='list'>
+            <div class='sns'>
+                <a href='https://twitter.com/taiKO_minBU' class='twitter icon'></a>
+                <a href='https://www.instagram.com/onsta__gram/' class='instagram icon'></a>
+            </div>
+            <div class='wrapper footer-wrapper'>
+                <a href='index.html' class='nav-text footer-nav'>ホーム</a>
+                <a href='About/index.html' class='nav-text footer-nav'>鼓舞とは</a>
+                <a href='Programs/index.html' class='nav-text footer-nav'>演目紹介</a>
+                <a href='Performances/index.html' class='nav-text footer-nav'>舞台紹介</a>
+                <a href='Link/index.html' class='nav-text footer-nav'>リンク</a>
+                <a href='Contact/index.html' class='nav-text footer-nav'>お問い合わせ</a>
+                <a href='OBOG/index.html' class='nav-text footer-nav'>団員専用ページ</a>
+                <div class='copyright'>© 2021 民舞太鼓サークル鼓舞</div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+
+
+<script type='text/javascript' charset='utf-8' async defer>
+
+    var globalData, title = '';
+
+    function $( e ) { return document.getElementById( e ); };
+
+    var url = new URL(window.location.href);
+    var params = url.searchParams;
+
+    function getJson() {
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function () {
+            if ( xmlhttp.readyState == 4 ) {
+                if ( xmlhttp.status == 200 ) {
+
+                    globalData = JSON.parse( xmlhttp.responseText );
+                    info();
+
+                }
+            }
+        }
+
+        xmlhttp.open( "GET", "resources/info.json" );
+        xmlhttp.send();
+
+    }
+
+    function info( data ) {
+
+        for ( let i = 0; i < globalData.length; i++ ) title += "<a href='Info/article.html?id=" + globalData[i].id + "' class='article'><div class='date'>" + globalData[i].date + "</div>" + globalData[i].title + "</a>";
+
+        $( "article-wrapper" ).innerHTML = title;
+
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,27 @@
+/* onnbutoha.css */
+@charset "utf-8";
+
+
+h1{
+	font-size:25px;
+    font-weight:bold;
+    text-align:center;
+    margin:25px 0px;
+}
+
+h2{
+    font-weight:bold;
+}
+
+p{
+    margin-bottom:15px;
+}
+
+#main{
+    width:500px;
+    margin:5px auto;
+    padding:0px 20px;
+    background-color:rgba(255,255,255,0.8);
+    border:2px solid #fff;
+    border-radius:10px;
+}

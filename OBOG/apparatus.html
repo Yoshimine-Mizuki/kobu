@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta name='format-detection' content='telephone=no,address=no,email=no'>
+  <meta name='viewport' content='width=device-width,user-scalable=no,maximum-scale=1,viewport-fit=cover'>
+  <meta name='theme-color' content='#ececee'>
+  <meta name='apple-mobile-web-app-capable' content='yes'>
+  <meta name='apple-mobile-web-app-title' content='装置チェック'>
+  <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'>
+  <meta name='apple-mobile-web-app-status-bar-style' content='#ececee'>
+  <link rel='apple-touch-icon' href='resources/images/favicon.png'>
+  <title>装置 - 民舞太鼓サークル鼓舞</title>
+
+  <base href='http://www2.jimu.nagoya-u.ac.jp/minzokuonbu/'>
+  <link rel='stylesheet' href='resources/css/style.css'>
+  <script src='https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js'></script>
+  <script src='https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js'></script>
+  <script src='https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js'></script>
+  <script src='https://www.gstatic.com/firebasejs/8.6.2/firebase-database.js'></script>
+</head>
+
+<body ontouchend>
+    <div class='ie'>
+        Internet Explorer はサポート対象外です。 <br>
+        Microsoft Edge をご使用ください。
+    </div>
+
+    <nav id='nav'>
+        <input type='checkbox' class='btn' id='checked'>
+        <label class='menu-btn' for='checked'>
+            <span class='hum top'></span>
+            <span class='hum middle'></span>
+            <span class='hum bottom'></span>
+        </label>
+
+        <div class='nav'>
+            <a href=''><div class='logo'></div></a>
+            <div class='wrapper header-wrapper'>
+                <a href='About/' class='nav-text header-nav'>鼓舞とは</a>
+                <a href='Programs/' class='nav-text header-nav'>演目紹介</a>
+                <a href='Performances/' class='nav-text header-nav'>舞台紹介</a>
+                <a href='Link/' class='nav-text header-nav'>リンク</a>
+                <a href='Contact/' class='nav-text header-nav'>お問い合わせ</a>
+            </div>
+            <a href='OBOG/' class='nav-text header-nav obog'>団員専用ページ</a>
+            <div class='nav-sns'>
+                <a href='https://twitter.com/taiKO_minBU' class='nav-twitter icon'></a>
+                <a href='https://www.instagram.com/onsta__gram/' class='nav-instagram icon'></a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class='board-wrapper sub'>
+            <div class='sub-board'>
+                <div class='title'>装置</div>
+                <div class='sub-text'>サ室から出した装置にチェックをつける。下部のLINE報告ボタンで報告用のテキストを生成。</div>
+                <div id='apparatus'></div>
+            </div>
+        </div>
+        <div class='line-btn l-align-center'>
+            <div class='submit' onclick='copyApp();'>LINE報告</div>
+        </div>
+        <div id='copyform'></div>
+    </main>
+
+    <footer id='footer'>
+        <div class='list'>
+            <div class='sns'>
+                <a href='https://twitter.com/taiKO_minBU' class='twitter icon'></a>
+                <a href='https://www.instagram.com/onsta__gram/' class='instagram icon'></a>
+            </div>
+            <div class='wrapper footer-wrapper'>
+                <a href='index.html' class='nav-text footer-nav'>ホーム</a>
+                <a href='About/index.html' class='nav-text footer-nav'>鼓舞とは</a>
+                <a href='Programs/index.html' class='nav-text footer-nav'>演目紹介</a>
+                <a href='Performances/index.html' class='nav-text footer-nav'>舞台紹介</a>
+                <a href='Link/index.html' class='nav-text footer-nav'>リンク</a>
+                <a href='Contact/index.html' class='nav-text footer-nav'>お問い合わせ</a>
+                <a href='OBOG/index.html' class='nav-text footer-nav'>団員専用ページ</a>
+                <div class='copyright'>© 2021 民舞太鼓サークル鼓舞</div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+<script>
+  function $( e ) { return document.getElementById( e ); };
+
+  if ( window.navigator.standalone ) {
+
+    $( 'nav' ).remove();
+    $( 'footer' ).remove();
+
+  }
+
+  let appSet = new Set();
+
+  const firebaseConfig = {
+    apiKey: 'AIzaSyDXP2wNs7u2hEHEaQ4gWP6UI9V7qqoxGXk',
+    authDomain: 'onbu-ac19b.firebaseapp.com',
+    databaseURL: 'https://onbu-ac19b-default-rtdb.firebaseio.com',
+    projectId: 'onbu-ac19b',
+    storageBucket: 'onbu-ac19b.appspot.com',
+    messagingSenderId: '446968876517',
+    appId: '1:446968876517:web:3fb2c4dccce9c2029e730c',
+    measurementId: 'G-JYFH023818'
+  };
+
+  firebase.initializeApp( firebaseConfig );
+  firebase.analytics();
+
+  const database = firebase.database();
+  const appRef = database.ref( 'apparatus' );
+
+  appRef.on( 'value', ( snapshot ) => {
+
+    let appObj = snapshot.val();
+
+    renderApp( appObj );
+
+  });
+
+  function renderApp( appObj ) {
+
+    let appList = '';
+
+    for ( let section in appObj ) {
+
+      let appSection = section.replace( /.*?:/g, '' );
+
+      appList += `<h1>${appSection}</h1><div class='sub-text apparatus-wrapper' id='${section}'>`;
+
+      for ( let name in appObj[section] ) {
+
+        let appName = name.replace(/.*?:/g, ''), checked = ( appObj[section][name] ) ? 'checked' : '';
+
+        appList += `<div class='checkbox-wrapper'><input type='checkbox' class='app-chk' id='${name}' onchange='postApp(this)' ${checked}><label class='app-label' for='${name}'>${appName}</label></div>`;
+
+      }
+
+      appList += '</div>';
+
+    }
+
+    $( 'apparatus' ).innerHTML = appList;
+
+  }
+
+  function postApp( app ) {
+
+    let appName = app.id.replace( /.*?:/g, '' );
+
+    if ( app.checked ) appSet.add( appName );
+    else appSet.delete( appName );
+
+    appRef.child( app.parentNode.parentNode.id ).update( { [app.id] : app.checked }, ( error ) => {
+
+      if ( error ) alert( 'ERROR: postApp'  );
+
+    });
+
+  }
+
+  function updateApp() {
+
+    let xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function () {
+      if ( xmlhttp.readyState == 4 && xmlhttp.status == 200 ) {
+
+        let appData = JSON.parse( xmlhttp.responseText );
+
+        appRef.set( appData, ( error ) => {
+
+          if ( error ) alert( 'ERROR: updateApp' );
+
+        });
+
+      }
+    }
+
+    xmlhttp.open( 'GET', 'OBOG/apparatus_db.json' );
+    xmlhttp.send();
+
+  }
+
+  function copyApp() {
+
+    if ( appSet.size === 0 ) {
+
+      alert( 'サ室から出した装置をチェックしてください.' );
+
+      return;
+
+    }
+
+    let copyFrom = document.createElement( 'textarea' );
+    copyFrom.textContent = `${[...appSet]}出しました`;
+
+    $( 'copyform' ).appendChild( copyFrom );
+
+    copyFrom.select();
+    document.execCommand( 'copy' );
+
+    $( 'copyform' ).removeChild( copyFrom );
+
+    alert( `以下のテキストをコピーしました:\n${[...appSet]}\n\n手動でLINEに貼り付けてください.` );
+
+  }
+</script>
+
+</html>
